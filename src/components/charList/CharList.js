@@ -8,48 +8,45 @@ import './charList.scss';
 
 const CharList = (props) => {
 
- const [charList, setCharList] = useState([]);
- const [newItemLoading, setNewItemLoading] = useState(false)
- const [offset, setOffset] = useState(210)
- const [charEnded, setCharEnded] = useState(false)
- 
- const {loading, error, getAllCharacters} = useMarvelService();
+    const [charList, setCharList] = useState([]);
+    const [newItemLoading, setNewItemLoading] = useState(false);
+    const [offset, setOffset] = useState(210);
+    const [charEnded, setCharEnded] = useState(false);
 
-useEffect(()=>{
-    onRequest(offset, true);
-}, [])
+    const {loading, error, getAllCharacters} = useMarvelService();
 
-  const  onRequest = (offset, initial) => {
-    initial ? setNewItemLoading(false) : setNewItemLoading(true)
+    useEffect(() => {
+        onRequest(offset, true);
+    }, [])
+
+    const onRequest = (offset, initial) => {
+        initial ? setNewItemLoading(false) : setNewItemLoading(true);
         getAllCharacters(offset)
             .then(onCharListLoaded)
     }
 
-
-   const onCharListLoaded = (newCharList) => {
+    const onCharListLoaded = (newCharList) => {
         let ended = false;
         if (newCharList.length < 9) {
             ended = true;
         }
 
-        setCharList(charList => [...charList, ...newCharList])
-        setNewItemLoading(newItemLoading => false)
-        setOffset(offset => offset + 9)
-        setCharEnded(charEnded => ended)
+        setCharList(charList => [...charList, ...newCharList]);
+        setNewItemLoading(newItemLoading => false);
+        setOffset(offset => offset + 9);
+        setCharEnded(charEnded => ended);
     }
-
-    console.log('charList')
 
     const itemRefs = useRef([]);
 
     const focusOnItem = (id) => {
-  
+
         itemRefs.current.forEach(item => item.classList.remove('char__item_selected'));
         itemRefs.current[id].classList.add('char__item_selected');
         itemRefs.current[id].focus();
     }
 
-   function renderItems(arr) {
+    function renderItems(arr) {
         const items =  arr.map((item, i) => {
             let imgStyle = {'objectFit' : 'cover'};
             if (item.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
@@ -83,8 +80,8 @@ useEffect(()=>{
             </ul>
         )
     }
-
-     const items = renderItems(charList);
+    
+    const items = renderItems(charList);
 
     const errorMessage = error ? <ErrorMessage/> : null;
     const spinner = loading && !newItemLoading ? <Spinner/> : null;
