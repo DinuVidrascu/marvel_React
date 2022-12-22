@@ -1,6 +1,7 @@
 import './comicsList.scss';
 import { useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import Spinner from '../spinner/spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import useMarvelService from '../../services/MarvelService';
