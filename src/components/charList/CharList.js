@@ -1,9 +1,10 @@
 import {useState, useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
+
+import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
-import useMarvelService from '../../services/MarvelService';
 
 import './charList.scss';
 
@@ -17,14 +18,8 @@ const CharList = (props) => {
 
     const {loading, error, getAllCharacters} = useMarvelService();
 
-    const initMount = useRef(true);
     useEffect(() => {
-        if (initMount.current) {
-            initMount.current = false;
-      
-            return;
-          }
-          return onRequest(offset, true);
+        onRequest(offset, true);
     }, [])
 
 
@@ -40,10 +35,10 @@ const CharList = (props) => {
             ended = true;
         }
 
-        setCharList(charList => [...charList, ...newCharList]);
-        setNewItemLoading(newItemLoading => false);
-        setOffset(offset => offset + 9);
-        setCharEnded(charEnded => ended);
+        setCharList([...charList, ...newCharList]);
+        setNewItemLoading(false);
+        setOffset(offset + 9);
+        setCharEnded(ended);
     }
 
     const itemRefs = useRef([]);

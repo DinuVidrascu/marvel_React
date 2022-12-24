@@ -67,7 +67,7 @@ const _transformComics = (comics) => {
     }
 }
 
-return {loading, error, clearError, getAllCharacters, getCharacter, getAllComics, getComic, getCharacterByName}
+return {loading, error, clearError, getAllCharacters, getCharacterByName, getCharacter, getAllComics, getComic}
 }
 
 export default useMarvelService;
