@@ -4,6 +4,7 @@ import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import Spinner from '../spinner/spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import useMarvelService from '../../services/MarvelService';
+
 import './charList.scss';
 
 
@@ -117,5 +118,4 @@ const CharList = (props) => {
 CharList.propTypes = {
     onCharSelected: PropTypes.func.isRequired
 }
-
 export default CharList;
